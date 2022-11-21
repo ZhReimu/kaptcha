@@ -14,7 +14,7 @@ public class ConfigHelper {
      */
     public Color getColor(String paramName, String paramValue, Color defaultColor) {
         Color color;
-        if ("".equals(paramValue) || paramValue == null) {
+        if (isEmpty(paramValue)) {
             color = defaultColor;
         } else if (paramValue.indexOf(",") > 0) {
             color = createColorFromCommaSeparatedValues(paramName, paramValue);
@@ -56,8 +56,8 @@ public class ConfigHelper {
         try {
             Field field = Class.forName("java.awt.Color").getField(paramValue);
             color = (Color) field.get(null);
-        } catch (NoSuchFieldException | ClassNotFoundException | IllegalAccessException nsfe) {
-            throw new ConfigException(paramName, paramValue, nsfe);
+        } catch (NoSuchFieldException | ClassNotFoundException | IllegalAccessException e) {
+            throw new ConfigException(paramName, paramValue, e);
         }
         return color;
     }
@@ -67,7 +67,7 @@ public class ConfigHelper {
      */
     public Object getClassInstance(String paramName, String paramValue, Object defaultInstance, Config config) {
         Object instance;
-        if ("".equals(paramValue) || paramValue == null) {
+        if (isEmpty(paramValue)) {
             instance = defaultInstance;
         } else {
             try {
@@ -86,9 +86,9 @@ public class ConfigHelper {
     /**
      *
      */
-    public Font[] getFonts(String paramName, String paramValue, int fontSize, Font[] defaultFonts) {
+    public Font[] getFonts(String ignoredParamName, String paramValue, int fontSize, Font[] defaultFonts) {
         Font[] fonts;
-        if ("".equals(paramValue) || paramValue == null) {
+        if (isEmpty(paramValue)) {
             fonts = defaultFonts;
         } else {
             String[] fontNames = paramValue.split(",");
@@ -105,7 +105,7 @@ public class ConfigHelper {
      */
     public int getPositiveInt(String paramName, String paramValue, int defaultInt) {
         int intValue;
-        if ("".equals(paramValue) || paramValue == null) {
+        if (isEmpty(paramValue)) {
             intValue = defaultInt;
         } else {
             try {
@@ -123,9 +123,9 @@ public class ConfigHelper {
     /**
      *
      */
-    public char[] getChars(String paramName, String paramValue, char[] defaultChars) {
+    public char[] getChars(String ignoredParamName, String paramValue, char[] defaultChars) {
         char[] chars;
-        if ("".equals(paramValue) || paramValue == null) {
+        if (isEmpty(paramValue)) {
             chars = defaultChars;
         } else {
             chars = paramValue.toCharArray();
@@ -138,7 +138,7 @@ public class ConfigHelper {
      */
     public boolean getBoolean(String paramName, String paramValue, boolean defaultValue) {
         boolean booleanValue;
-        if ("true".equals(paramValue) || "yes".equals(paramValue) || "".equals(paramValue) || paramValue == null) {
+        if ("true".equals(paramValue) || "yes".equals(paramValue) || isEmpty(paramValue)) {
             booleanValue = defaultValue;
         } else if ("no".equals(paramValue) || "false".equals(paramValue)) {
             booleanValue = false;
@@ -156,4 +156,9 @@ public class ConfigHelper {
             ((Configurable) object).setConfig(config);
         }
     }
+
+    private boolean isEmpty(String paramValue) {
+        return "".equals(paramValue) || paramValue == null;
+    }
+
 }
