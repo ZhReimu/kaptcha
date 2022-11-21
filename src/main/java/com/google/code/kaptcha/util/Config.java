@@ -291,8 +291,8 @@ public class Config {
             return this;
         }
 
-        public Builder borderThickness(String key) {
-            properties.setProperty(KAPTCHA_BORDER_THICKNESS, key);
+        public Builder borderThickness(int key) {
+            properties.setProperty(KAPTCHA_BORDER_THICKNESS, String.valueOf(key));
             return this;
         }
 
@@ -326,8 +326,8 @@ public class Config {
             return this;
         }
 
-        public Builder textproducerCharLength(String key) {
-            properties.setProperty(KAPTCHA_TEXTPRODUCER_CHAR_LENGTH, key);
+        public Builder textproducerCharLength(int key) {
+            properties.setProperty(KAPTCHA_TEXTPRODUCER_CHAR_LENGTH, String.valueOf(key));
             return this;
         }
 
@@ -341,13 +341,13 @@ public class Config {
             return this;
         }
 
-        public Builder textproducerFontSize(String key) {
-            properties.setProperty(KAPTCHA_TEXTPRODUCER_FONT_SIZE, key);
+        public Builder textproducerFontSize(int key) {
+            properties.setProperty(KAPTCHA_TEXTPRODUCER_FONT_SIZE, String.valueOf(key));
             return this;
         }
 
-        public Builder textproducerCharSpace(String key) {
-            properties.setProperty(KAPTCHA_TEXTPRODUCER_CHAR_SPACE, key);
+        public Builder textproducerCharSpace(int key) {
+            properties.setProperty(KAPTCHA_TEXTPRODUCER_CHAR_SPACE, String.valueOf(key));
             return this;
         }
 
@@ -371,13 +371,13 @@ public class Config {
             return this;
         }
 
-        public Builder imageWidth(String key) {
-            properties.setProperty(KAPTCHA_IMAGE_WIDTH, key);
+        public Builder imageWidth(int key) {
+            properties.setProperty(KAPTCHA_IMAGE_WIDTH, String.valueOf(key));
             return this;
         }
 
-        public Builder imageHeight(String key) {
-            properties.setProperty(KAPTCHA_IMAGE_HEIGHT, key);
+        public Builder imageHeight(int key) {
+            properties.setProperty(KAPTCHA_IMAGE_HEIGHT, String.valueOf(key));
             return this;
         }
 
