@@ -1,6 +1,7 @@
 package com.google.code.kaptcha;
 
 public class Constants {
+
     public final static String KAPTCHA_SESSION_KEY = "KAPTCHA_SESSION_KEY";
 
     public final static String KAPTCHA_SESSION_DATE = "KAPTCHA_SESSION_DATE";
@@ -48,4 +49,5 @@ public class Constants {
     public static final String KAPTCHA_IMAGE_WIDTH = "kaptcha.image.width";
 
     public static final String KAPTCHA_IMAGE_HEIGHT = "kaptcha.image.height";
+
 }

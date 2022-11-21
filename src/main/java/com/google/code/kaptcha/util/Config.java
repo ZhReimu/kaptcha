@@ -13,6 +13,8 @@ import com.google.code.kaptcha.text.impl.DefaultWordRenderer;
 import java.awt.*;
 import java.util.Properties;
 
+import static com.google.code.kaptcha.Constants.*;
+
 /**
  * {@link Config} retrieves configuration values from properties file and
  * specifies default values when no value is specified.
@@ -144,9 +146,8 @@ public class Config {
     public NoiseProducer getNoiseImpl() {
         String paramName = Constants.KAPTCHA_NOISE_IMPL;
         String paramValue = this.properties.getProperty(paramName);
-        NoiseProducer noiseProducer = (NoiseProducer) this.helper.getClassInstance(paramName, paramValue,
+        return (NoiseProducer) this.helper.getClassInstance(paramName, paramValue,
                 new DefaultNoise(), this);
-        return noiseProducer;
     }
 
     /**
@@ -164,8 +165,7 @@ public class Config {
     public GimpyEngine getObscurificatorImpl() {
         String paramName = Constants.KAPTCHA_OBSCURIFICATOR_IMPL;
         String paramValue = this.properties.getProperty(paramName);
-        GimpyEngine gimpyEngine = (GimpyEngine) this.helper.getClassInstance(paramName, paramValue, new WaterRipple(), this);
-        return gimpyEngine;
+        return (GimpyEngine) this.helper.getClassInstance(paramName, paramValue, new WaterRipple(), this);
     }
 
     /**
@@ -174,9 +174,8 @@ public class Config {
     public WordRenderer getWordRendererImpl() {
         String paramName = Constants.KAPTCHA_WORDRENDERER_IMPL;
         String paramValue = this.properties.getProperty(paramName);
-        WordRenderer wordRenderer = (WordRenderer) this.helper.getClassInstance(paramName, paramValue,
+        return (WordRenderer) this.helper.getClassInstance(paramName, paramValue,
                 new DefaultWordRenderer(), this);
-        return wordRenderer;
     }
 
     /**
@@ -185,9 +184,8 @@ public class Config {
     public BackgroundProducer getBackgroundImpl() {
         String paramName = Constants.KAPTCHA_BACKGROUND_IMPL;
         String paramValue = this.properties.getProperty(paramName);
-        BackgroundProducer backgroundProducer = (BackgroundProducer) this.helper.getClassInstance(paramName, paramValue,
+        return (BackgroundProducer) this.helper.getClassInstance(paramName, paramValue,
                 new DefaultBackground(), this);
-        return backgroundProducer;
     }
 
     /**
@@ -231,7 +229,7 @@ public class Config {
      * HttpSession. Defaults to Constants.KAPTCHA_SESSION_KEY.
      */
     public String getSessionKey() {
-        return this.properties.getProperty(Constants.KAPTCHA_SESSION_CONFIG_KEY, Constants.KAPTCHA_SESSION_KEY);
+        return this.properties.getProperty(Constants.KAPTCHA_SESSION_CONFIG_KEY, KAPTCHA_SESSION_KEY);
     }
 
     /**
@@ -248,4 +246,139 @@ public class Config {
     public Properties getProperties() {
         return this.properties;
     }
+
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+
+        private final Properties properties = new Properties();
+
+        public Builder sessionKey(String key) {
+            properties.setProperty(KAPTCHA_SESSION_KEY, key);
+            return this;
+        }
+
+        public Builder sessionDate(String date) {
+            properties.setProperty(KAPTCHA_SESSION_DATE, date);
+            return this;
+        }
+
+        public Builder sessionConfigKey(String key) {
+            properties.setProperty(KAPTCHA_SESSION_CONFIG_KEY, key);
+            return this;
+        }
+
+        public Builder sessionConfigDate(String key) {
+            properties.setProperty(KAPTCHA_SESSION_CONFIG_DATE, key);
+            return this;
+        }
+
+        public Builder border(String key) {
+            properties.setProperty(KAPTCHA_BORDER, key);
+            return this;
+        }
+
+        public Builder borderColor(String key) {
+            properties.setProperty(KAPTCHA_BORDER_COLOR, key);
+            return this;
+        }
+
+        public Builder borderThickness(String key) {
+            properties.setProperty(KAPTCHA_BORDER_THICKNESS, key);
+            return this;
+        }
+
+        public Builder noiseColor(String key) {
+            properties.setProperty(KAPTCHA_NOISE_COLOR, key);
+            return this;
+        }
+
+        public Builder noiseImpl(String key) {
+            properties.setProperty(KAPTCHA_NOISE_IMPL, key);
+            return this;
+        }
+
+        public Builder obscurificatorImpl(String key) {
+            properties.setProperty(KAPTCHA_OBSCURIFICATOR_IMPL, key);
+            return this;
+        }
+
+        public Builder producerImpl(String key) {
+            properties.setProperty(KAPTCHA_PRODUCER_IMPL, key);
+            return this;
+        }
+
+        public Builder textproducerImpl(String key) {
+            properties.setProperty(KAPTCHA_TEXTPRODUCER_IMPL, key);
+            return this;
+        }
+
+        public Builder textproducerCharString(String key) {
+            properties.setProperty(KAPTCHA_TEXTPRODUCER_CHAR_STRING, key);
+            return this;
+        }
+
+        public Builder textproducerCharLength(String key) {
+            properties.setProperty(KAPTCHA_TEXTPRODUCER_CHAR_LENGTH, key);
+            return this;
+        }
+
+        public Builder textproducerFontNames(String key) {
+            properties.setProperty(KAPTCHA_TEXTPRODUCER_FONT_NAMES, key);
+            return this;
+        }
+
+        public Builder textproducerFontColor(String key) {
+            properties.setProperty(KAPTCHA_TEXTPRODUCER_FONT_COLOR, key);
+            return this;
+        }
+
+        public Builder textproducerFontSize(String key) {
+            properties.setProperty(KAPTCHA_TEXTPRODUCER_FONT_SIZE, key);
+            return this;
+        }
+
+        public Builder textproducerCharSpace(String key) {
+            properties.setProperty(KAPTCHA_TEXTPRODUCER_CHAR_SPACE, key);
+            return this;
+        }
+
+        public Builder wordrendererImpl(String key) {
+            properties.setProperty(KAPTCHA_WORDRENDERER_IMPL, key);
+            return this;
+        }
+
+        public Builder backgroundImpl(String key) {
+            properties.setProperty(KAPTCHA_BACKGROUND_IMPL, key);
+            return this;
+        }
+
+        public Builder backgroundClrFrom(String key) {
+            properties.setProperty(KAPTCHA_BACKGROUND_CLR_FROM, key);
+            return this;
+        }
+
+        public Builder backgroundClrTo(String key) {
+            properties.setProperty(KAPTCHA_BACKGROUND_CLR_TO, key);
+            return this;
+        }
+
+        public Builder imageWidth(String key) {
+            properties.setProperty(KAPTCHA_IMAGE_WIDTH, key);
+            return this;
+        }
+
+        public Builder imageHeight(String key) {
+            properties.setProperty(KAPTCHA_IMAGE_HEIGHT, key);
+            return this;
+        }
+
+        public Config build() {
+            return new Config(properties);
+        }
+    }
+
 }
