@@ -33,26 +33,27 @@ public class KaptchaServlet extends HttpServlet {
 
     private String sessionKeyDateValue = null;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.servlet.Servlet#init(javax.servlet.ServletConfig)
-     */
+    private boolean initialized = false;
+
     @Override
     public void init(ServletConfig conf) throws ServletException {
         super.init(conf);
+        // ensure container do not override manual invoked init method result
+        if (!initialized) {
+            Enumeration<?> initParams = conf.getInitParameterNames();
+            while (initParams.hasMoreElements()) {
+                String key = (String) initParams.nextElement();
+                String value = conf.getInitParameter(key);
+                this.props.put(key, value);
+            }
+            init(Config.builder().from(this.props).build());
+        }
+    }
 
+    public void init(Config config) {
+        initialized = true;
         // Switch off disk based caching.
         ImageIO.setUseCache(false);
-
-        Enumeration<?> initParams = conf.getInitParameterNames();
-        while (initParams.hasMoreElements()) {
-            String key = (String) initParams.nextElement();
-            String value = conf.getInitParameter(key);
-            this.props.put(key, value);
-        }
-
-        Config config = Config.builder().from(this.props).build();
         this.kaptchaProducer = config.getProducerImpl();
         this.sessionKeyValue = config.getSessionKey();
         this.sessionKeyDateValue = config.getSessionDate();
@@ -62,8 +63,7 @@ public class KaptchaServlet extends HttpServlet {
      *
      */
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         // Set to expire far in the past.
         resp.setDateHeader("Expires", 0);
         // Set standard HTTP/1.1 no-cache headers.
