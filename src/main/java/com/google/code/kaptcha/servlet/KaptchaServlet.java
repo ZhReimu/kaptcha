@@ -35,6 +35,13 @@ public class KaptchaServlet extends HttpServlet {
 
     private boolean initialized = false;
 
+    public KaptchaServlet() {
+    }
+
+    public KaptchaServlet(Config config) {
+        init(config);
+    }
+
     @Override
     public void init(ServletConfig conf) throws ServletException {
         super.init(conf);
