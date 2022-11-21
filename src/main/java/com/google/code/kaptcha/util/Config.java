@@ -31,8 +31,13 @@ public class Config {
     private final ConfigHelper helper;
 
     /**
+     * use {@link Properties} to construction an {@link Config}
+     * deprecated, please use {@link #builder} or {@link Builder} to instead
      *
+     * @see Builder
+     * @see #builder()
      */
+    @Deprecated
     public Config(Properties properties) {
         this.properties = properties;
         this.helper = new ConfigHelper();
