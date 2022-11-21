@@ -2,7 +2,6 @@ package com.google.code.kaptcha.servlet;
 
 import com.google.code.kaptcha.Producer;
 import com.google.code.kaptcha.util.Config;
-import jakarta.servlet.Servlet;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletOutputStream;
@@ -24,7 +23,7 @@ import java.util.Properties;
  * @author jon
  * @author cliffano
  */
-public class KaptchaServlet extends HttpServlet implements Servlet {
+public class KaptchaServlet extends HttpServlet {
 
     private final Properties props = new Properties();
 
@@ -53,7 +52,7 @@ public class KaptchaServlet extends HttpServlet implements Servlet {
             this.props.put(key, value);
         }
 
-        Config config = new Config(this.props);
+        Config config = Config.builder().from(this.props).build();
         this.kaptchaProducer = config.getProducerImpl();
         this.sessionKeyValue = config.getSessionKey();
         this.sessionKeyDateValue = config.getSessionDate();

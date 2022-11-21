@@ -32,7 +32,7 @@ public class Config {
 
     /**
      * use {@link Properties} to construction an {@link Config}
-     * deprecated, please use {@link #builder} or {@link Builder} to instead
+     * deprecated, please use {@link #builder} or {@link Builder} or {@link Builder#from} to instead
      *
      * @see Builder
      * @see #builder()
@@ -260,6 +260,11 @@ public class Config {
     public static class Builder {
 
         private final Properties properties = new Properties();
+
+        public Builder from(Properties properties) {
+            this.properties.putAll(properties);
+            return this;
+        }
 
         public Builder sessionKey(String key) {
             properties.setProperty(KAPTCHA_SESSION_KEY, key);
