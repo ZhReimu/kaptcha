@@ -13,7 +13,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Config config = Config.builder()
-                .border("yes")
+                .border(true)
                 .borderColor("105,179,90")
                 .textproducerFontColor("blue")
                 .textproducerFontSize(100)

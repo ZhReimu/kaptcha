@@ -286,8 +286,8 @@ public class Config {
             return this;
         }
 
-        public Builder border(String key) {
-            properties.setProperty(KAPTCHA_BORDER, key);
+        public Builder border(boolean key) {
+            properties.setProperty(KAPTCHA_BORDER, String.valueOf(key));
             return this;
         }
 
